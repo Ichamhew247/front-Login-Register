@@ -3,6 +3,7 @@ import Header from "../layouts/Header";
 import Login from "../pages/Login";
 import Register from "../pages/register";
 import Homepage from "../pages/Homepage";
+import Profile from "../pages/Profile";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ export default function Router() {
 
       children: [
         {
+          path: "/",
+          element: <Homepage />,
+        },
+        {
           path: "/login",
           element: <Login />,
         },
@@ -27,6 +32,10 @@ export default function Router() {
         {
           path: "/homepage",
           element: <Homepage />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
         },
       ],
     },

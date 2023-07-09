@@ -5,7 +5,7 @@ function Homepage() {
   return (
     <>
       <div>
-        <div>น้องแงว</div>
+        <div className="text-lg text-orange-400 font-semibold">น้องแงว</div>
         <img src={cat} />
       </div>
       <div>
