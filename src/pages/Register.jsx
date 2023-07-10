@@ -19,12 +19,12 @@ function Register() {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
+      email: inputs.email,
+      password: inputs.password,
       fname: inputs.fname,
       lname: inputs.lname,
-      username: inputs.username,
-      password: inputs.password,
-      email: inputs.email,
-      avatar: inputs.avatar,
+      // username: inputs.username,
+      // avatar: inputs.avatar,
     });
 
     var requestOptions = {
@@ -34,7 +34,7 @@ function Register() {
       redirect: "follow",
     };
 
-    fetch("https://www.melivecode.com/api/users/create", requestOptions)
+    fetch("http://localhost:8888/users/register", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.status === "ok") {
@@ -58,33 +58,13 @@ function Register() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        Enter your fisrtname:
+        Enter your email:
         <div>
           <input
             className="border border-sky-300"
             type="text"
-            name="fname"
-            value={inputs.fname || ""}
-            onChange={handleChange}
-          />
-        </div>
-        Enter your lastname:
-        <div>
-          <input
-            className="border border-sky-300"
-            type="text"
-            name="lname"
-            value={inputs.lname || ""}
-            onChange={handleChange}
-          />
-        </div>
-        Enter your username:
-        <div>
-          <input
-            className="border border-sky-300"
-            type="text"
-            name="username"
-            value={inputs.username || ""}
+            name="email"
+            value={inputs.email || ""}
             onChange={handleChange}
           />
         </div>
@@ -98,17 +78,27 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        Enter your email:
+        Enter your fname:
         <div>
           <input
             className="border border-sky-300"
             type="text"
-            name="email"
-            value={inputs.email || ""}
+            name="fname"
+            value={inputs.fname || ""}
             onChange={handleChange}
           />
         </div>
-        Enter your avatar:
+        Enter your lname:
+        <div>
+          <input
+            className="border border-sky-300"
+            type="password"
+            name="lname"
+            value={inputs.lname || ""}
+            onChange={handleChange}
+          />
+        </div>
+        {/* Enter your avatar:
         <div>
           <input
             className="border border-sky-300"
@@ -117,7 +107,7 @@ function Register() {
             value={inputs.avatar || ""}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <button>
           <input
             className="border border-sky-300 hover:bg-sky-600 cursor-pointer"

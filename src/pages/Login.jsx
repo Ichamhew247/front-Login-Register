@@ -7,6 +7,7 @@ function Login() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   const [inputs, setInputs] = useState({});
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -19,7 +20,7 @@ function Login() {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      username: inputs.username,
+      email: inputs.email,
       password: inputs.password,
       expiresIn: 600000,
     });
@@ -31,7 +32,7 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("https://www.melivecode.com/api/login", requestOptions)
+    fetch("http://localhost:8888/users/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.status === "ok") {
@@ -59,11 +60,11 @@ function Login() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h1>Username :</h1>
+        <h1>email :</h1>
         <input
           type="text"
-          name="username"
-          value={inputs.username || ""}
+          name="email"
+          value={inputs.email || ""}
           onChange={handleChange}
         />
         <h1>password :</h1>
