@@ -41,7 +41,7 @@ function Login() {
             html: <i>{result.message}</i>,
             icon: "success",
           }).then((value) => {
-            localStorage.setItem("token", result.accessToken);
+            localStorage.setItem("token", result.token);
             navigate("/profile");
             console.log(value);
           });

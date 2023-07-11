@@ -1,42 +1,42 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-function Profile() {
+
+export default function Profile() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
-
-    var requestOptions = {
+    fetch("http://localhost:8888/users/authen", {
       method: "POST",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:8888/users/authen", requestOptions)
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
       .then((response) => response.json())
-      .then((result) => {
-        if (result.status === "ok") {
-          setUser(result.user);
-          setIsLoaded(true);
-        } else if (result.status === "forhidden") {
+      .then((data) => {
+        if (data.status == "ok") {
           MySwal.fire({
-            title: <strong>ห้ามดู ยังไม่ได้ล็อคอิน!!!</strong>,
-            html: <i>{result.message}</i>,
-            icon: "error",
-          }).then(() => {
-            navigate("/homepage");
+            title: "Authen success!",
+            icon: "success",
           });
+        } else {
+          MySwal.fire({
+            title: <strong>Authen FAILED!</strong>,
+            icon: "error",
+          });
+          // localStorage.removeItem("token");
+          window.location = "/login";
         }
-        console.log(result);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+      });
   }, []);
 
   const logout = () => {
@@ -49,26 +49,12 @@ function Profile() {
     });
   };
 
-  if (isLoaded) {
-    return (
-      <>
-        <div>Loading</div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div>{user.id}</div>
-        <div>{user.email}</div>
-        <div>{user.fname}</div>
-        <div>{user.lname}</div>
-        {/* <img src={user.avatar} alt={user.id} width={100} /> */}
-        <div>
-          <button onClick={logout}>Logout</button>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <div>
+        <button onClick={logout}>Logout</button>
+      </div>
+      <div>Nattanicha</div>
+    </>
+  );
 }
-
-export default Profile;
