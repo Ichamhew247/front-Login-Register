@@ -15,6 +15,9 @@ function Header() {
       <Link to="/profile">
         <button className=" border-gray-600">Profile</button>
       </Link>
+      <Link to="/aboutme">
+        <button className=" border-gray-600">Aboutme</button>
+      </Link>
     </div>
   );
 }

@@ -27,11 +27,13 @@ export default function Profile() {
           });
         } else {
           MySwal.fire({
-            title: <strong>Authen FAILED!</strong>,
+            title: "Authen FAILED!",
             icon: "error",
           });
-          // localStorage.removeItem("token");
-          window.location = "/login";
+          setTimeout(() => {
+            localStorage.removeItem("token");
+            window.location = "/login";
+          }, 1000);
         }
       })
       .catch((error) => {
