@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -7,7 +6,6 @@ import withReactContent from "sweetalert2-react-content";
 export default function Profile() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
-  const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
